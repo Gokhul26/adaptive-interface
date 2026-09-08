@@ -1,6 +1,6 @@
 export default function Testimonials() {
   return (
-<section className="w-full py-space-4xl bg-surface">
+<section id="reviews-section" className="w-full py-space-4xl bg-surface">
 <div className="max-w-container-max mx-auto px-gutter-desktop space-y-space-2xl">
 <div className="text-center max-w-2xl mx-auto space-y-space-xs">
 <span className="font-label-lg text-label-lg text-secondary uppercase tracking-widest font-semibold">Voice of our Connoisseurs</span>

@@ -1,6 +1,6 @@
 export default function Social() {
   return (
-<section className="w-full py-space-3xl bg-surface-container">
+<section id="social-section" className="w-full py-space-3xl bg-surface-container">
 <div className="max-w-container-max mx-auto px-gutter-desktop space-y-space-xl">
 
 <div className="grid grid-cols-2 md:grid-cols-4 gap-space-md">
