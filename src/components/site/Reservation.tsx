@@ -121,7 +121,7 @@ export default function Reservation() {
 
 {booked && (<div className="p-space-md rounded bg-tertiary/15 text-tertiary font-body-md text-center">
             🎉 <strong>Vanakkam!</strong> Your table reservation has been received. Our concierge is preparing your welcome brass tumbler. Confirmation details sent to WhatsApp!
-          </div>
+          </div>)}
 </form>
 </div>
 </div>
