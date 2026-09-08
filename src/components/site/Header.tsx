@@ -50,7 +50,7 @@ export default function Header() {
         </div>
       </div>
 
-      <div className="mx-auto grid h-20 max-w-container-max grid-cols-[minmax(0,1fr)_auto] items-center gap-space-md px-gutter-desktop">
+      <div className="mx-auto flex h-20 max-w-container-max items-center justify-between gap-space-md px-gutter-desktop">
         <a className="flex min-w-0 items-center gap-space-sm" href="#top">
           <img
             alt="The Annavasal Hotel logo"
@@ -67,7 +67,7 @@ export default function Header() {
           </span>
         </a>
 
-        <nav className="hidden items-center gap-space-lg xl:flex">
+        <nav className="hidden items-center gap-space-lg xl:flex xl:min-w-0">
           {navLinks.map((link) => (
             <a
               key={link.label}
