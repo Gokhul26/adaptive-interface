@@ -4,6 +4,14 @@ function isoDate(d: Date) {
   return d.toISOString().split("T")[0];
 }
 
+/**
+ * Shared control styling. The fixed `h-12` is what keeps the grid aligned:
+ * text inputs, selects and `type="date"` all render different intrinsic
+ * heights from the same padding, so the height is set explicitly instead.
+ */
+const fieldClass =
+  "w-full h-12 bg-surface-container-lowest text-on-surface text-body-md px-space-md rounded border border-outline-variant focus:outline-none focus:border-primary transition-all";
+
 export default function Reservation() {
   const [date, setDate] = useState(() => isoDate(new Date()));
   const [booked, setBooked] = useState(false);
@@ -45,22 +53,22 @@ export default function Reservation() {
 <div className="space-y-1.5">
 <label className="font-label-md text-label-md text-on-surface uppercase font-semibold">Guest Full Name *</label>
 <div className="relative">
-<input className="w-full bg-surface-container-lowest text-on-surface text-body-md px-space-md py-space-sm rounded border border-outline-variant focus:outline-none focus:border-primary transition-all" placeholder="e.g. Sundaramurthy Pillai" required type="text" />
-<span className="material-symbols-outlined absolute right-3 top-3 text-outline text-[18px]">person</span>
+<input className={fieldClass} placeholder="e.g. Sundaramurthy Pillai" required type="text" />
+<span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">person</span>
 </div>
 </div>
 
 <div className="space-y-1.5">
 <label className="font-label-md text-label-md text-on-surface uppercase font-semibold">Mobile Number (WhatsApp) *</label>
 <div className="flex">
-<span className="inline-flex items-center px-3 bg-surface-container text-on-surface text-body-md rounded-l border border-r-0 border-outline-variant font-medium">+91</span>
-<input className="w-full bg-surface-container-lowest text-on-surface text-body-md px-space-md py-space-sm rounded-r border border-outline-variant focus:outline-none focus:border-primary transition-all" pattern="[0-9]{10}" placeholder="98401 23456" required type="tel" />
+<span className="inline-flex h-12 shrink-0 items-center px-3 bg-surface-container text-on-surface text-body-md rounded-l border border-r-0 border-outline-variant font-medium">+91</span>
+<input className={`${fieldClass} rounded-l-none`} pattern="[0-9]{10}" placeholder="98401 23456" required type="tel" />
 </div>
 </div>
 
 <div className="space-y-1.5">
 <label className="font-label-md text-label-md text-on-surface uppercase font-semibold">Number of Guests *</label>
-<select className="w-full bg-surface-container-lowest text-on-surface text-body-md px-space-md py-space-sm rounded border border-outline-variant focus:outline-none focus:border-primary transition-all" required>
+<select className={fieldClass} required>
 <option value="2">2 Guests (Couple / Pair)</option>
 <option  value="4">4 Guests (Family Table)</option>
 <option value="6">6 Guests (Courtyard Group)</option>
@@ -71,17 +79,17 @@ export default function Reservation() {
 
 <div className="space-y-1.5">
 <label className="font-label-md text-label-md text-on-surface uppercase font-semibold">Dining Date *</label>
-<div className="flex gap-2 mb-1.5">
+<input className={fieldClass} required type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+<div className="flex flex-wrap gap-2 pt-0.5">
 <button className="date-pill px-2.5 py-1 text-label-sm font-label-sm rounded bg-surface-container text-on-surface hover:bg-secondary-container transition-colors" onClick={() => setDatePill("today")} type="button">Today</button>
 <button className="date-pill px-2.5 py-1 text-label-sm font-label-sm rounded bg-surface-container text-on-surface hover:bg-secondary-container transition-colors" onClick={() => setDatePill("tomorrow")} type="button">Tomorrow</button>
 <button className="date-pill px-2.5 py-1 text-label-sm font-label-sm rounded bg-surface-container text-on-surface hover:bg-secondary-container transition-colors" onClick={() => setDatePill("weekend")} type="button">This Sunday</button>
 </div>
-<input className="w-full bg-surface-container-lowest text-on-surface text-body-md px-space-md py-space-sm rounded border border-outline-variant focus:outline-none focus:border-primary transition-all" required type="date" value={date} onChange={(e) => setDate(e.target.value)} />
 </div>
 
 <div className="space-y-1.5">
 <label className="font-label-md text-label-md text-on-surface uppercase font-semibold">Seating Time Slot *</label>
-<select className="w-full bg-surface-container-lowest text-on-surface text-body-md px-space-md py-space-sm rounded border border-outline-variant focus:outline-none focus:border-primary transition-all" required>
+<select className={fieldClass} required>
 <optgroup label="Royal Lunch Virundhu">
 <option value="11:30">11:30 AM (First Batch)</option>
 <option  value="12:30">12:30 PM (Peak Virundhu)</option>
@@ -99,13 +107,13 @@ export default function Reservation() {
 
 <div className="space-y-1.5">
 <label className="font-label-md text-label-md text-on-surface uppercase font-semibold">Seating Experience *</label>
-<select className="w-full bg-surface-container-lowest text-on-surface text-body-md px-space-md py-space-sm rounded border border-outline-variant focus:outline-none focus:border-primary transition-all" required><option value="udumalpet-ac">Udumalpet Branch — AC Dining</option><option value="udumalpet-main">Udumalpet Branch — Main Hall</option><option value="palani-ac">Palani Branch — AC Dining</option><option value="palani-main">Palani Branch — Traditional Hall</option><option value="catering">Events & Outdoor Catering Inquiry</option></select>
+<select className={fieldClass} required><option value="udumalpet-ac">Udumalpet Branch — AC Dining</option><option value="udumalpet-main">Udumalpet Branch — Main Hall</option><option value="palani-ac">Palani Branch — AC Dining</option><option value="palani-main">Palani Branch — Traditional Hall</option><option value="catering">Events & Outdoor Catering Inquiry</option></select>
 </div>
 </div>
 
 <div className="space-y-1.5">
 <label className="font-label-md text-label-md text-on-surface uppercase font-semibold">Special Dietary or Ceremonial Requests</label>
-<input className="w-full bg-surface-container-lowest text-on-surface text-body-md px-space-md py-space-sm rounded border border-outline-variant focus:outline-none focus:border-primary transition-all" placeholder="e.g., Pre-book 4 Raja Virundhu Elai feasts, celebrating parents' 50th anniversary, low spice for kids" type="text" />
+<input className={fieldClass} placeholder="e.g., Pre-book 4 Raja Virundhu Elai feasts, celebrating parents' 50th anniversary, low spice for kids" type="text" />
 </div>
 
 <div className="pt-space-md flex flex-col sm:flex-row items-center justify-between gap-space-md border-t border-outline-variant/30">

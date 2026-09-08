@@ -203,7 +203,7 @@
   --spacing-space-lg: 1.5rem;
   --spacing-space-3xl: clamp(2.5rem, 6vw, 4.5rem);
   --spacing-space-2xl: clamp(2rem, 5vw, 3rem);
-  --container-container-max: 1280px;
+  --container-container-max: 1440px;
   --font-headline-lg: "Playfair Display", ui-sans-serif, system-ui, sans-serif;
   --font-headline-xl-mobile: "Playfair Display", ui-sans-serif, system-ui, sans-serif;
   --font-headline-xl: "Playfair Display", ui-sans-serif, system-ui, sans-serif;
@@ -291,4 +291,43 @@ img { max-width: 100%; }
 @theme {
   --radius-lg: 0.25rem;
   --radius-xl: 0.5rem;
+}
+
+/* ---- Continuous horizontal marquee (reviews) ---- */
+.marquee {
+  overflow: hidden;
+  /* Fade the cards in and out at the edges instead of clipping them hard. */
+  mask-image: linear-gradient(to right, transparent, #000 4rem, #000 calc(100% - 4rem), transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 4rem, #000 calc(100% - 4rem), transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll var(--marquee-duration, 60s) linear infinite;
+}
+
+/* The track holds two identical copies, so -50% lands exactly on the seam. */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+  }
+
+  .marquee-track {
+    animation: none;
+  }
 }

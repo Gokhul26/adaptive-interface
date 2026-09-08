@@ -2,7 +2,6 @@ import { useState } from "react";
 
 const navLinks = [
   { label: "Home", href: "#top" },
-  { label: "Heritage", href: "#heritage-section" },
   { label: "Menu", href: "#menu-showcase" },
   { label: "Reviews", href: "#reviews-section" },
   { label: "Community", href: "#social-section" },

@@ -10,45 +10,6 @@ export default function Social() {
 <section id="social-section" className="w-full py-space-3xl bg-surface-container">
 <div className="max-w-container-max mx-auto px-gutter-desktop space-y-space-xl">
 
-<div className="grid grid-cols-2 md:grid-cols-4 gap-space-md">
-<a className="bg-surface p-space-md rounded-lg shadow-sm hover:shadow-md transition-all flex items-center gap-space-md" href="#">
-<div className="w-10 h-10 rounded bg-primary-fixed flex items-center justify-center text-primary">
-<span className="material-symbols-outlined">photo_camera</span>
-</div>
-<div>
-<div className="font-headline-sm text-headline-sm text-primary font-bold">85K</div>
-<div className="font-body-sm text-body-sm text-on-surface-variant">@annavaasalofficial</div>
-</div>
-</a>
-<a className="bg-surface p-space-md rounded-lg shadow-sm hover:shadow-md transition-all flex items-center gap-space-md" href="#">
-<div className="w-10 h-10 rounded bg-error-container flex items-center justify-center text-error">
-<span className="material-symbols-outlined">smart_display</span>
-</div>
-<div>
-<div className="font-headline-sm text-headline-sm text-primary font-bold">120K</div>
-<div className="font-body-sm text-body-sm text-on-surface-variant">Kitchen Chronicles</div>
-</div>
-</a>
-<a className="bg-surface p-space-md rounded-lg shadow-sm hover:shadow-md transition-all flex items-center gap-space-md" href="#">
-<div className="w-10 h-10 rounded bg-tertiary-fixed flex items-center justify-center text-tertiary">
-<span className="material-symbols-outlined">chat</span>
-</div>
-<div>
-<div className="font-headline-sm text-headline-sm text-primary font-bold">Instant</div>
-<div className="font-body-sm text-body-sm text-on-surface-variant">WhatsApp Concierge</div>
-</div>
-</a>
-<a className="bg-surface p-space-md rounded-lg shadow-sm hover:shadow-md transition-all flex items-center gap-space-md" href="#">
-<div className="w-10 h-10 rounded bg-secondary-fixed flex items-center justify-center text-secondary">
-<span className="material-symbols-outlined">groups</span>
-</div>
-<div>
-<div className="font-headline-sm text-headline-sm text-primary font-bold">45K</div>
-<div className="font-body-sm text-body-sm text-on-surface-variant">Food Club Members</div>
-</div>
-</a>
-</div>
-
 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-space-sm items-stretch">
 <div className="bg-surface-container-low p-space-xl rounded-xl shadow-sm space-y-space-md flex flex-col justify-between md:row-span-2">
 <div className="space-y-space-md">
@@ -59,7 +20,9 @@ export default function Social() {
 </span>
 </div>
 <h3 className="font-headline-md text-headline-md text-primary font-bold">Udumalpet Branch</h3>
-<p className="font-body-md text-body-md text-on-surface">6A, Nehru Street, near Suguna Regional Office, Udumalaipettai, Tamil Nadu 642126</p>
+{/* Both branch addresses reserve the same height so the hours block below
+    them starts at the same point in each card, despite different lengths. */}
+<p className="font-body-md text-body-md text-on-surface md:min-h-[4.5rem]">6A, Nehru Street, near Suguna Regional Office, Udumalaipettai, Tamil Nadu 642126</p>
 <div className="space-y-1 font-body-sm text-body-sm text-on-surface-variant">
 <div className="flex items-center gap-2">
 <span className="material-symbols-outlined text-[18px] text-secondary">schedule</span>
@@ -78,11 +41,23 @@ export default function Social() {
 <a className="hover:underline" href="tel:+919894670027">+91 98946 70027</a>
 </div>
 </div>
-<div className="w-full h-44 rounded-lg bg-cover bg-center shadow-inner" data-location="6A Nehru Street, Udumalaipettai, Tamil Nadu" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBlF57HUaxSpzdGQQNlqyCYKAbodrX7HqcS26snN-8VqAGVuhEgkk6xV2HR5mlA4VkF0ZYLszwiL1sxldWsLQV_2cBJv77QEXQHKBwY1KGDiLKErURzqHNelw4nkpSIUWsqcfSCVGNq9vE287mxekKU167S3VMoqVyeSU9wt3M6uDQhHjBo7D-hZEesb5yecp1vEdmkDv7gthEWjIE5VST2f_aLivGMkuYeCbMLqXoymL-KTrujE7uK')" }}></div>
 </div>
-<a className="w-full py-2.5 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm uppercase tracking-wider rounded text-center block transition-colors mt-space-md" href="https://www.google.com/maps/search/?api=1&query=The+Annavasal+Hotel+6A+Nehru+Street+Udumalaipettai+642126" target="_blank">
+{/* Map + button are bottom-anchored with `mt-auto` so both branch cards line
+    up, whatever height the address and hours above them happen to take. */}
+<div className="mt-auto space-y-space-md pt-space-md">
+<div className="w-full h-44 rounded-lg overflow-hidden shadow-inner" data-location="6A Nehru Street, Udumalaipettai, Tamil Nadu">
+<iframe
+  className="w-full h-full border-0"
+  title="Map of Sri Annavaasal — Udumalpet Branch"
+  loading="lazy"
+  referrerPolicy="no-referrer-when-downgrade"
+  src="https://www.google.com/maps?q=Sri+Annavaasal%2C+Nehru+Street%2C+Udumalaipettai%2C+Tamil+Nadu+642126&z=17&output=embed"
+></iframe>
+</div>
+<a className="w-full py-2.5 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm uppercase tracking-wider rounded text-center block transition-colors" href="https://www.google.com/maps/search/?api=1&query=The+Annavasal+Hotel+6A+Nehru+Street+Udumalaipettai+642126" target="_blank">
   Get Directions on Google Maps
 </a>
+</div>
 </div>
 <div className="bg-surface-container-low p-space-xl rounded-xl shadow-sm space-y-space-md flex flex-col justify-between md:row-span-2">
 <div className="space-y-space-md">
@@ -93,7 +68,7 @@ export default function Social() {
 </span>
 </div>
 <h3 className="font-headline-md text-headline-md text-primary font-bold">Palani Branch</h3>
-<p className="font-body-md text-body-md text-on-surface">Railway Feeder Rd, Anna Nagar, Palani, Tamil Nadu 624601</p>
+<p className="font-body-md text-body-md text-on-surface md:min-h-[4.5rem]">Railway Feeder Rd, Anna Nagar, Palani, Tamil Nadu<br />624601</p>
 <div className="space-y-1 font-body-sm text-body-sm text-on-surface-variant">
 <div className="flex items-center gap-2">
 <span className="material-symbols-outlined text-[18px] text-secondary">schedule</span>
@@ -112,11 +87,21 @@ export default function Social() {
 <a className="hover:underline" href="tel:+919095010027">+91 90950 10027</a>
 </div>
 </div>
-<div className="w-full h-44 rounded-lg bg-cover bg-center shadow-inner" data-location="Railway Feeder Rd, Anna Nagar, Palani, Tamil Nadu" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuCUweVLRp5vptb5jSA8iYxG5GviGJxRpTWF5WVXDzTARo8H1RQTsDm6R4dvVgDZFe5tFi0T_mRRU0_wPgXcI2Rom0WluTqLV2v5cMh8u3rVZLuKOVMgTlnBlwyfwupdIs4w4ZCI_H_BHSNNe22C5zthbqEL9PWvUTj7-5GvGZOBaWrwBBzPYFPm5i9YyZIFAvsRAtfr9lK5TlO2Qye2I0m5ixN2dXCGopTGj0udfUw4HC_mcUf7j8JA')" }}></div>
 </div>
-<a className="w-full py-2.5 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm uppercase tracking-wider rounded text-center block transition-colors mt-space-md" href="https://www.google.com/maps/search/?api=1&query=The+Annavasal+Hotel+Railway+Feeder+Rd+Palani+624601" target="_blank">
+<div className="mt-auto space-y-space-md pt-space-md">
+<div className="w-full h-44 rounded-lg overflow-hidden shadow-inner" data-location="Railway Feeder Rd, Anna Nagar, Palani, Tamil Nadu">
+<iframe
+  className="w-full h-full border-0"
+  title="Map of Sri Annavasal Restaurant — Palani Branch"
+  loading="lazy"
+  referrerPolicy="no-referrer-when-downgrade"
+  src="https://www.google.com/maps?q=Sri+Annavasal+Restaurant%2C+Railway+Feeder+Rd%2C+Anna+Nagar%2C+Palani%2C+Tamil+Nadu+624601&z=17&output=embed"
+></iframe>
+</div>
+<a className="w-full py-2.5 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm uppercase tracking-wider rounded text-center block transition-colors" href="https://www.google.com/maps/search/?api=1&query=The+Annavasal+Hotel+Railway+Feeder+Rd+Palani+624601" target="_blank">
   Get Directions on Google Maps
 </a>
+</div>
 </div>
 <div className="group relative h-64 md:h-full md:min-h-64 overflow-hidden rounded shadow-sm">
 <img className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Vibrant outdoor Tamil wedding banquet hall lined with long banquet tables draped in banana leaves, decorated with fragrant yellow and orange marigold garlands and smiling servers in traditional dhotis" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcINCDzngWkHJKl8XQnSriLZGNdAjsm5XFf1SIXRXGPMCDTZbA_3WU-iClgWr5GCWluwehe95fds04c1lVHtgVsM6DTFmtH7sNspAzE0oDsmV-N6LceEj9uRIsWUEykFieUGgLmxNr6CrI9IlngHFPmhRp2UCauzLe5uTNcy-Yc6UpH-y9kZulHjffsvmkDEKHur3glXiJJQEf53-Uerog6YLPs_2g4XfyBm3D3oo_ZsRpMcP9tM0a" />

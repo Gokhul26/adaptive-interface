@@ -22,12 +22,8 @@ export default function Hero() {
 </div>
 
 <div className="space-y-space-xs">
-<p className="font-label-lg text-label-lg text-secondary uppercase tracking-widest font-semibold flex items-center gap-2">
-<span className="w-8 h-[2px] bg-secondary inline-block"></span>
-              Tradition Rooted in Periya Veedu Grandeur
-            </p>
 <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg text-primary font-bold tracking-tight leading-[1.1]">
-              Flavors of the Tamizh Heartland — Ancient Recipes, Timeless Hospitality
+              Flavors of the Tamil Heartland — Ancient Recipes, Timeless Hospitality
             </h1>
 </div>
 <p className="font-body-xl text-body-xl text-on-surface-variant max-w-2xl leading-relaxed">Experience authentic Tamil cuisine, fragrant sambars, and bustling tiffin traditions at The Annavasal Hotel in Udumalpet and Palani. Served fresh with ancestral warmth on plantain leaves.</p>
@@ -43,24 +39,6 @@ export default function Hero() {
             </a>
 </div>
 
-<div className="grid grid-cols-2 sm:grid-cols-4 gap-space-md pt-space-xl">
-<div className="bg-surface p-space-md rounded shadow-sm">
-<div className="font-headline-md text-headline-md text-primary font-bold">40+</div>
-<div className="font-body-sm text-body-sm text-on-surface-variant">Heritage Recipes</div>
-</div>
-<div className="bg-surface p-space-md rounded shadow-sm">
-<div className="font-headline-md text-headline-md text-primary font-bold">1974</div>
-<div className="font-body-sm text-body-sm text-on-surface-variant">Generational Roots</div>
-</div>
-<div className="bg-surface p-space-md rounded shadow-sm">
-<div className="font-headline-md text-headline-md text-tertiary font-bold">100%</div>
-<div className="font-body-sm text-body-sm text-on-surface-variant">Claypot & Cast Iron</div>
-</div>
-<div className="bg-surface p-space-md rounded shadow-sm">
-<div className="font-headline-md text-headline-md text-secondary font-bold">4.9 ★</div>
-<div className="font-body-sm text-body-sm text-on-surface-variant">12,000+ Diners</div>
-</div>
-</div>
 </div>
 
 <div className="lg:col-span-5 relative">
