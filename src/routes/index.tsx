@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import Header from "@/components/site/Header";
 import Hero from "@/components/site/Hero";
-import Heritage from "@/components/site/Heritage";
 import Menu from "@/components/site/Menu";
 import Reservation from "@/components/site/Reservation";
 import Testimonials from "@/components/site/Testimonials";
@@ -34,7 +33,6 @@ function Index() {
       <main className="w-full bg-surface pt-[7.5rem] xl:pt-[8.5rem]">
         <div className="flex w-full flex-col">
           <Hero />
-          <Heritage />
           <Menu />
           <Reservation />
           <Testimonials />
