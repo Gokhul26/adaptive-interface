@@ -128,8 +128,5 @@ export default function Social() {
 <div className="bg-surface p-space-lg rounded-xl shadow-sm flex flex-col md:flex-row items-center justify-between gap-space-md text-center md:text-left"><div className="flex items-center gap-space-md"><span className="material-symbols-outlined text-secondary text-[36px]">photo_camera_front</span><div><h4 className="font-headline-sm text-headline-sm text-primary font-bold">Tag @theannavasalhotel with #AnnavasalDining</h4><p className="font-body-sm text-body-sm text-on-surface-variant">Follow our culinary journey across Udumalpet & Palani branches on Instagram & Facebook!</p></div></div><div className="flex flex-wrap gap-2"><a className="px-space-lg py-space-xs bg-secondary hover:bg-secondary-container text-on-secondary hover:text-on-secondary-container font-label-md text-label-md uppercase rounded transition-colors shadow-sm" href="https://www.instagram.com/theannavasalhotel/" target="_blank">Instagram</a><a className="px-space-lg py-space-xs bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md uppercase rounded transition-colors shadow-sm" href="https://annavasalhotel.blogspot.com/" target="_blank">Read Blog</a></div></div>
 </div>
 </section>
-
-
-</div>
   );
 }

@@ -4,6 +4,6 @@ export default function Footer() {
 
 
 
-</body></html>
+
   );
 }
