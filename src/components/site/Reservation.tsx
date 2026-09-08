@@ -1,4 +1,25 @@
+import { useState, type FormEvent } from "react";
+
+function isoDate(d: Date) {
+  return d.toISOString().split("T")[0];
+}
+
 export default function Reservation() {
+  const [date, setDate] = useState(() => isoDate(new Date()));
+  const [booked, setBooked] = useState(false);
+
+  const setDatePill = (pill: string) => {
+    const now = new Date();
+    if (pill === "tomorrow") now.setDate(now.getDate() + 1);
+    if (pill === "weekend") now.setDate(now.getDate() + ((7 - now.getDay()) % 7));
+    setDate(isoDate(now));
+  };
+
+  const handleReservation = (e: FormEvent) => {
+    e.preventDefault();
+    setBooked(true);
+  };
+
   return (
 <section className="w-full py-space-4xl bg-surface-container-low relative" id="reservation-section">
 <div className="max-w-container-max mx-auto px-gutter-desktop">
@@ -51,11 +72,11 @@ export default function Reservation() {
 <div className="space-y-1.5">
 <label className="font-label-md text-label-md text-on-surface uppercase font-semibold">Dining Date *</label>
 <div className="flex gap-2 mb-1.5">
-<button className="date-pill px-2.5 py-1 text-label-sm font-label-sm rounded bg-surface-container text-on-surface hover:bg-secondary-container transition-colors" onClick={() => setDatePill('today')} type="button">Today</button>
-<button className="date-pill px-2.5 py-1 text-label-sm font-label-sm rounded bg-surface-container text-on-surface hover:bg-secondary-container transition-colors" onClick={() => setDatePill('tomorrow')} type="button">Tomorrow</button>
-<button className="date-pill px-2.5 py-1 text-label-sm font-label-sm rounded bg-surface-container text-on-surface hover:bg-secondary-container transition-colors" onClick={() => setDatePill('weekend')} type="button">This Sunday</button>
+<button className="date-pill px-2.5 py-1 text-label-sm font-label-sm rounded bg-surface-container text-on-surface hover:bg-secondary-container transition-colors" onClick={() => setDatePill("today")} type="button">Today</button>
+<button className="date-pill px-2.5 py-1 text-label-sm font-label-sm rounded bg-surface-container text-on-surface hover:bg-secondary-container transition-colors" onClick={() => setDatePill("tomorrow")} type="button">Tomorrow</button>
+<button className="date-pill px-2.5 py-1 text-label-sm font-label-sm rounded bg-surface-container text-on-surface hover:bg-secondary-container transition-colors" onClick={() => setDatePill("weekend")} type="button">This Sunday</button>
 </div>
-<input className="w-full bg-surface-container-lowest text-on-surface text-body-md px-space-md py-space-sm rounded border border-outline-variant focus:outline-none focus:border-primary transition-all" id="dining-date" required type="date" />
+<input className="w-full bg-surface-container-lowest text-on-surface text-body-md px-space-md py-space-sm rounded border border-outline-variant focus:outline-none focus:border-primary transition-all" required type="date" value={date} onChange={(e) => setDate(e.target.value)} />
 </div>
 
 <div className="space-y-1.5">
@@ -98,7 +119,7 @@ export default function Reservation() {
 </button>
 </div>
 
-<div className="hidden p-space-md rounded bg-tertiary/15 text-tertiary font-body-md text-center" id="booking-success-message">
+{booked && (<div className="p-space-md rounded bg-tertiary/15 text-tertiary font-body-md text-center">
             🎉 <strong>Vanakkam!</strong> Your table reservation has been received. Our concierge is preparing your welcome brass tumbler. Confirmation details sent to WhatsApp!
           </div>
 </form>
