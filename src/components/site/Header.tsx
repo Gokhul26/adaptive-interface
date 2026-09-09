@@ -37,14 +37,9 @@ export default function Header() {
             <span className="hidden text-label-sm uppercase tracking-wider text-secondary-fixed lg:inline">
               Traditional South Indian Dining
             </span>
-            <a
-              className="text-label-sm font-semibold uppercase text-secondary-fixed underline decoration-secondary-container decoration-2 underline-offset-4 transition-colors hover:text-on-primary"
-              href="https://wa.me/+919894670027"
-              target="_blank"
-              rel="noreferrer"
-            >
-              WhatsApp Booking
-            </a>
+            <span className="text-label-sm font-semibold uppercase text-secondary-fixed">
+              WhatsApp Booking Available
+            </span>
           </div>
         </div>
       </div>

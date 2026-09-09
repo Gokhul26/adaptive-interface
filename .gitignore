@@ -16,6 +16,17 @@ dist-ssr
 .nitro
 *.local
 
+# Environment — never commit secrets (API keys, tokens)
+.env
+.env.*
+!.env.example
+
+# Caches
+.cache/
+.vite/
+.eslintcache
+*.tsbuildinfo
+
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars

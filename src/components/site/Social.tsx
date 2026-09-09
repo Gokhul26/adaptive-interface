@@ -1,9 +1,43 @@
 import { useState, type FormEvent } from "react";
 
+/** Same WhatsApp line as the table reservations. */
+const CATERING_PHONE = "919894670027";
+
+const EVENT_OPTIONS = [
+  { value: "wedding", label: "Traditional Wedding (100 - 1500 Pax)" },
+  { value: "housewarming", label: "Gruhapravesam / Housewarming" },
+  { value: "corporate", label: "Corporate Heritage Feast" },
+];
+
 export default function Social() {
+  const [cateringName, setCateringName] = useState("");
+  const [cateringMobile, setCateringMobile] = useState("");
+  const [cateringEvent, setCateringEvent] = useState("wedding");
   const [cateringSent, setCateringSent] = useState(false);
+
+  /**
+   * Same pattern as the table reservation: compose the enquiry and hand it to
+   * WhatsApp so the guest sends it from their own account.
+   */
   const handleCateringInquiry = (e: FormEvent) => {
     e.preventDefault();
+
+    const event = EVENT_OPTIONS.find((o) => o.value === cateringEvent);
+    const message = [
+      "Vanakkam! I'd like to request the catering dossier for a Virundhu banquet.",
+      "",
+      `*Contact Name:* ${cateringName.trim()}`,
+      `*Mobile:* ${cateringMobile.trim()}`,
+      `*Event:* ${event?.label ?? cateringEvent}`,
+      "",
+      "Please share the menu and pricing details. Nandri!",
+    ].join("\n");
+
+    window.open(
+      `https://wa.me/${CATERING_PHONE}?text=${encodeURIComponent(message)}`,
+      "_blank",
+      "noopener,noreferrer",
+    );
     setCateringSent(true);
   };
   return (
@@ -104,17 +138,17 @@ export default function Social() {
 </div>
 </div>
 <div className="group relative h-64 md:h-full md:min-h-64 overflow-hidden rounded shadow-sm">
-<img className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Vibrant outdoor Tamil wedding banquet hall lined with long banquet tables draped in banana leaves, decorated with fragrant yellow and orange marigold garlands and smiling servers in traditional dhotis" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcINCDzngWkHJKl8XQnSriLZGNdAjsm5XFf1SIXRXGPMCDTZbA_3WU-iClgWr5GCWluwehe95fds04c1lVHtgVsM6DTFmtH7sNspAzE0oDsmV-N6LceEj9uRIsWUEykFieUGgLmxNr6CrI9IlngHFPmhRp2UCauzLe5uTNcy-Yc6UpH-y9kZulHjffsvmkDEKHur3glXiJJQEf53-Uerog6YLPs_2g4XfyBm3D3oo_ZsRpMcP9tM0a" />
+<img className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Vibrant outdoor Tamil wedding banquet hall lined with long banquet tables draped in banana leaves, decorated with fragrant yellow and orange marigold garlands and smiling servers in traditional dhotis" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcINCDzngWkHJKl8XQnSriLZGNdAjsm5XFf1SIXRXGPMCDTZbA_3WU-iClgWr5GCWluwehe95fds04c1lVHtgVsM6DTFmtH7sNspAzE0oDsmV-N6LceEj9uRIsWUEykFieUGgLmxNr6CrI9IlngHFPmhRp2UCauzLe5uTNcy-Yc6UpH-y9kZulHjffsvmkDEKHur3glXiJJQEf53-Uerog6YLPs_2g4XfyBm3D3oo_ZsRpMcP9tM0a" />
 <div className="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-on-primary">
 <span className="font-label-md text-label-md uppercase tracking-wider font-semibold">#VirundhuCatering</span>
 </div>
 </div>
 <div className="group relative h-64 md:h-full md:min-h-64 overflow-hidden rounded shadow-sm">
-<img className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Ornate bronze Kuthuvilakku oil lamp glowing brightly with multiple cotton wicks at sunset inside an open heritage Chettinad courtyard surrounded by intricate white rice flour kolam patterns" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCI-RRDD7R_Jo8LYqGJREPOACmWwCBbKmcyQqbQSzTQj8oGaGIrb0tqk09EZy6_i9OO3DLUq3RbAxr_KaW1vV7muWHxQNsBU5YndIHtB5GWaNEKZ28UY3fo0JVWAldtU22IzkHn7FVVb3ijMCXe550ZCUWcjEv_pp-XufwROvrVG7SieANOweRlIlq4G2Rmw2EIbECclGJQdDhuy2-ESpDUhCIk6mfz1cSromOLAKIOJ6a3sQQw3Gxi" />
+<img className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Ornate bronze Kuthuvilakku oil lamp glowing brightly with multiple cotton wicks at sunset inside an open heritage Chettinad courtyard surrounded by intricate white rice flour kolam patterns" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCI-RRDD7R_Jo8LYqGJREPOACmWwCBbKmcyQqbQSzTQj8oGaGIrb0tqk09EZy6_i9OO3DLUq3RbAxr_KaW1vV7muWHxQNsBU5YndIHtB5GWaNEKZ28UY3fo0JVWAldtU22IzkHn7FVVb3ijMCXe550ZCUWcjEv_pp-XufwROvrVG7SieANOweRlIlq4G2Rmw2EIbECclGJQdDhuy2-ESpDUhCIk6mfz1cSromOLAKIOJ6a3sQQw3Gxi" />
 <div className="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-on-primary">
 <span className="font-label-md text-label-md uppercase tracking-wider font-semibold">#TwilightCourtyard</span>
 </div>
-</div><div className="sm:col-span-2 md:col-start-3 md:row-start-2 bg-primary text-on-primary p-space-lg rounded-xl shadow-md flex flex-col justify-between space-y-space-md"><div className="space-y-space-sm"><div className="flex items-center gap-2 text-secondary-fixed"><span className="material-symbols-outlined">diversity_3</span><span className="font-label-md text-label-md uppercase tracking-wider font-bold">Virundhu Banquets</span></div><h3 className="font-headline-md text-headline-md font-bold">Weddings & Feasts</h3><p className="font-body-sm text-body-sm text-primary-fixed leading-relaxed">Bring the grand Periya Veedu dining tradition to your special day. Full-scale banana-leaf catering supervised by seasoned *samayal ashirwadhams*.</p><form className="grid grid-cols-1 sm:grid-cols-3 gap-space-xs pt-space-xs" onSubmit={handleCateringInquiry}><input className="bg-surface-container-lowest text-on-surface text-body-sm px-space-md py-2 rounded focus:outline-none placeholder:text-outline" placeholder="Contact Name" required type="text" /><input className="bg-surface-container-lowest text-on-surface text-body-sm px-space-md py-2 rounded focus:outline-none placeholder:text-outline" placeholder="Mobile Number" required type="tel" /><select className="bg-surface-container-lowest text-on-surface text-body-sm px-space-md py-2 rounded focus:outline-none"><option value="wedding">Traditional Wedding (100 - 1500 Pax)</option><option value="housewarming">Gruhapravesam / Housewarming</option><option value="corporate">Corporate Heritage Feast</option></select><button className="col-span-1 sm:col-span-3 py-2.5 bg-secondary hover:bg-secondary-fixed text-on-secondary hover:text-on-secondary-fixed font-label-md text-label-md uppercase tracking-wider rounded font-bold transition-colors shadow-md" type="submit">Request Catering Dossier</button></form>{cateringSent && (<div className="text-label-sm font-label-sm text-secondary-fixed pt-1">✓ Request noted. Our wedding liaison will call you within 2 business hours.</div>)}</div><div className="pt-space-sm border-t border-outline-variant/30 text-body-sm text-primary-fixed flex items-center justify-between"><span className="">Direct Wedding Desk: <a className="font-semibold text-secondary-fixed underline" href="tel:+919444028341">+91 94440 28341</a></span><span className="material-symbols-outlined text-secondary-fixed text-[20px]">verified</span></div></div>
+</div><div className="sm:col-span-2 md:col-start-3 md:row-start-2 bg-primary text-on-primary p-space-lg rounded-xl shadow-md flex flex-col justify-between space-y-space-md"><div className="space-y-space-sm"><div className="flex items-center gap-2 text-secondary-fixed"><span className="material-symbols-outlined">diversity_3</span><span className="font-label-md text-label-md uppercase tracking-wider font-bold">Virundhu Banquets</span></div><h3 className="font-headline-md text-headline-md font-bold">Weddings & Feasts</h3><p className="font-body-sm text-body-sm text-primary-fixed leading-relaxed">Bring the grand Periya Veedu dining tradition to your special day. Full-scale banana-leaf catering supervised by seasoned *samayal ashirwadhams*.</p><form className="grid grid-cols-1 sm:grid-cols-3 gap-space-xs pt-space-xs" onSubmit={handleCateringInquiry}><input className="bg-surface-container-lowest text-on-surface text-body-sm px-space-md py-2 rounded focus:outline-none placeholder:text-outline" placeholder="Contact Name" required type="text" value={cateringName} onChange={(e) => setCateringName(e.target.value)} /><input className="bg-surface-container-lowest text-on-surface text-body-sm px-space-md py-2 rounded focus:outline-none placeholder:text-outline" placeholder="Mobile Number" required type="tel" value={cateringMobile} onChange={(e) => setCateringMobile(e.target.value)} /><select className="bg-surface-container-lowest text-on-surface text-body-sm px-space-md py-2 rounded focus:outline-none" value={cateringEvent} onChange={(e) => setCateringEvent(e.target.value)}>{EVENT_OPTIONS.map((o) => (<option key={o.value} value={o.value}>{o.label}</option>))}</select><button className="col-span-1 sm:col-span-3 py-2.5 bg-secondary hover:bg-secondary-fixed text-on-secondary hover:text-on-secondary-fixed font-label-md text-label-md uppercase tracking-wider rounded font-bold transition-colors shadow-md" type="submit">Request on WhatsApp</button></form>{cateringSent && (<div className="text-label-sm font-label-sm text-secondary-fixed pt-1">✓ WhatsApp is open with your enquiry — press send and our wedding liaison will respond shortly.</div>)}</div><div className="pt-space-sm border-t border-outline-variant/30 text-body-sm text-primary-fixed flex items-center justify-between"><span className="">Direct Wedding Desk: <a className="font-semibold text-secondary-fixed underline" href="tel:+919444028341">+91 94440 28341</a></span><span className="material-symbols-outlined text-secondary-fixed text-[20px]">verified</span></div></div>
 </div>
 
 <div className="bg-surface p-space-lg rounded-xl shadow-sm flex flex-col md:flex-row items-center justify-between gap-space-md text-center md:text-left"><div className="flex items-center gap-space-md"><span className="material-symbols-outlined text-secondary text-[36px]">photo_camera_front</span><div><h4 className="font-headline-sm text-headline-sm text-primary font-bold">Tag @theannavasalhotel with #AnnavasalDining</h4><p className="font-body-sm text-body-sm text-on-surface-variant">Follow our culinary journey across Udumalpet & Palani branches on Instagram & Facebook!</p></div></div><div className="flex flex-wrap gap-2"><a className="px-space-lg py-space-xs bg-secondary hover:bg-secondary-container text-on-secondary hover:text-on-secondary-container font-label-md text-label-md uppercase rounded transition-colors shadow-sm" href="https://www.instagram.com/theannavasalhotel/" target="_blank">Instagram</a><a className="px-space-lg py-space-xs bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md uppercase rounded transition-colors shadow-sm" href="https://annavasalhotel.blogspot.com/" target="_blank">Read Blog</a></div></div>

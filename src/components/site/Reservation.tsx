@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 
 function isoDate(d: Date) {
-  return d.toISOString().split("T")[0];
+  return d.toISOString().split("T")[0] ?? "";
 }
 
 /**
@@ -12,8 +12,70 @@ function isoDate(d: Date) {
 const fieldClass =
   "w-full h-12 bg-surface-container-lowest text-on-surface text-body-md px-space-md rounded border border-outline-variant focus:outline-none focus:border-primary transition-all";
 
+const GUEST_OPTIONS = [
+  { value: "2", label: "2 Guests (Couple / Pair)" },
+  { value: "4", label: "4 Guests (Family Table)" },
+  { value: "6", label: "6 Guests (Courtyard Group)" },
+  { value: "8", label: "8 Guests (Large Banquet)" },
+  { value: "12", label: "10+ Guests (Private Hall Feast)" },
+];
+
+const SLOT_GROUPS = [
+  {
+    label: "Royal Lunch Virundhu",
+    options: [
+      { value: "11:30", label: "11:30 AM (First Batch)" },
+      { value: "12:30", label: "12:30 PM (Peak Virundhu)" },
+      { value: "13:30", label: "01:30 PM (Afternoon Saapaadu)" },
+      { value: "14:30", label: "02:30 PM (Late Lunch)" },
+    ],
+  },
+  {
+    label: "Twilight Dinner & Tiffin",
+    options: [
+      { value: "19:00", label: "07:00 PM (Early Dinner)" },
+      { value: "20:00", label: "08:00 PM (Courtyard Evening)" },
+      { value: "21:00", label: "09:00 PM (Late Night Tiffin)" },
+      { value: "22:00", label: "10:00 PM (Final Seating)" },
+    ],
+  },
+];
+
+/** Each seating choice routes to the branch that actually takes the booking. */
+const DEFAULT_PHONE = "919894670027";
+
+const SEATING_OPTIONS = [
+  { value: "udumalpet-ac", label: "Udumalpet Branch — AC Dining", phone: "919894670027" },
+  { value: "udumalpet-main", label: "Udumalpet Branch — Main Hall", phone: "919894670027" },
+  { value: "palani-ac", label: "Palani Branch — AC Dining", phone: "919095010027" },
+  { value: "palani-main", label: "Palani Branch — Traditional Hall", phone: "919095010027" },
+  { value: "catering", label: "Events & Outdoor Catering Inquiry", phone: "919894670027" },
+];
+
+const labelOf = (options: { value: string; label: string }[], value: string) =>
+  options.find((o) => o.value === value)?.label ?? value;
+
+const ALL_SLOTS = SLOT_GROUPS.flatMap((g) => g.options);
+
+function formatDate(iso: string) {
+  const d = new Date(`${iso}T00:00:00`);
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleDateString("en-IN", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
 export default function Reservation() {
+  const [name, setName] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [guests, setGuests] = useState("2");
   const [date, setDate] = useState(() => isoDate(new Date()));
+  const [slot, setSlot] = useState("11:30");
+  const [seating, setSeating] = useState("udumalpet-ac");
+  const [requests, setRequests] = useState("");
   const [booked, setBooked] = useState(false);
 
   const setDatePill = (pill: string) => {
@@ -23,8 +85,30 @@ export default function Reservation() {
     setDate(isoDate(now));
   };
 
+  /**
+   * Nothing is booked server-side: the form composes the enquiry and hands it
+   * to WhatsApp, so the guest sends it from their own account and keeps the
+   * thread with the branch that will confirm the table.
+   */
   const handleReservation = (e: FormEvent) => {
     e.preventDefault();
+
+    const branch = SEATING_OPTIONS.find((o) => o.value === seating);
+    const lines = [
+      "Vanakkam! I'd like to reserve a table.",
+      "",
+      `*Name:* ${name.trim()}`,
+      `*Mobile:* +91 ${mobile.trim()}`,
+      `*Guests:* ${labelOf(GUEST_OPTIONS, guests)}`,
+      `*Date:* ${formatDate(date)}`,
+      `*Time:* ${labelOf(ALL_SLOTS, slot)}`,
+      `*Seating:* ${branch?.label ?? seating}`,
+    ];
+    if (requests.trim()) lines.push(`*Special requests:* ${requests.trim()}`);
+    lines.push("", "Please confirm availability. Nandri!");
+
+    const url = `https://wa.me/${branch?.phone ?? DEFAULT_PHONE}?text=${encodeURIComponent(lines.join("\n"))}`;
+    window.open(url, "_blank", "noopener,noreferrer");
     setBooked(true);
   };
 
@@ -53,7 +137,7 @@ export default function Reservation() {
 <div className="space-y-1.5">
 <label className="font-label-md text-label-md text-on-surface uppercase font-semibold">Guest Full Name *</label>
 <div className="relative">
-<input className={fieldClass} placeholder="e.g. Sundaramurthy Pillai" required type="text" />
+<input className={fieldClass} placeholder="e.g. Sundaramurthy Pillai" required type="text" value={name} onChange={(e) => setName(e.target.value)} />
 <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">person</span>
 </div>
 </div>
@@ -62,18 +146,14 @@ export default function Reservation() {
 <label className="font-label-md text-label-md text-on-surface uppercase font-semibold">Mobile Number (WhatsApp) *</label>
 <div className="flex">
 <span className="inline-flex h-12 shrink-0 items-center px-3 bg-surface-container text-on-surface text-body-md rounded-l border border-r-0 border-outline-variant font-medium">+91</span>
-<input className={`${fieldClass} rounded-l-none`} pattern="[0-9]{10}" placeholder="98401 23456" required type="tel" />
+<input className={`${fieldClass} rounded-l-none`} pattern="[0-9]{10}" placeholder="98401 23456" required type="tel" value={mobile} onChange={(e) => setMobile(e.target.value)} />
 </div>
 </div>
 
 <div className="space-y-1.5">
 <label className="font-label-md text-label-md text-on-surface uppercase font-semibold">Number of Guests *</label>
-<select className={fieldClass} required>
-<option value="2">2 Guests (Couple / Pair)</option>
-<option  value="4">4 Guests (Family Table)</option>
-<option value="6">6 Guests (Courtyard Group)</option>
-<option value="8">8 Guests (Large Banquet)</option>
-<option value="12">10+ Guests (Private Hall Feast)</option>
+<select className={fieldClass} required value={guests} onChange={(e) => setGuests(e.target.value)}>
+{GUEST_OPTIONS.map((o) => (<option key={o.value} value={o.value}>{o.label}</option>))}
 </select>
 </div>
 
@@ -89,46 +169,41 @@ export default function Reservation() {
 
 <div className="space-y-1.5">
 <label className="font-label-md text-label-md text-on-surface uppercase font-semibold">Seating Time Slot *</label>
-<select className={fieldClass} required>
-<optgroup label="Royal Lunch Virundhu">
-<option value="11:30">11:30 AM (First Batch)</option>
-<option  value="12:30">12:30 PM (Peak Virundhu)</option>
-<option value="13:30">01:30 PM (Afternoon Saapaadu)</option>
-<option value="14:30">02:30 PM (Late Lunch)</option>
+<select className={fieldClass} required value={slot} onChange={(e) => setSlot(e.target.value)}>
+{SLOT_GROUPS.map((g) => (
+<optgroup key={g.label} label={g.label}>
+{g.options.map((o) => (<option key={o.value} value={o.value}>{o.label}</option>))}
 </optgroup>
-<optgroup label="Twilight Dinner & Tiffin">
-<option value="19:00">07:00 PM (Early Dinner)</option>
-<option value="20:00">08:00 PM (Courtyard Evening)</option>
-<option value="21:00">09:00 PM (Late Night Tiffin)</option>
-<option value="22:00">10:00 PM (Final Seating)</option>
-</optgroup>
+))}
 </select>
 </div>
 
 <div className="space-y-1.5">
 <label className="font-label-md text-label-md text-on-surface uppercase font-semibold">Seating Experience *</label>
-<select className={fieldClass} required><option value="udumalpet-ac">Udumalpet Branch — AC Dining</option><option value="udumalpet-main">Udumalpet Branch — Main Hall</option><option value="palani-ac">Palani Branch — AC Dining</option><option value="palani-main">Palani Branch — Traditional Hall</option><option value="catering">Events & Outdoor Catering Inquiry</option></select>
+<select className={fieldClass} required value={seating} onChange={(e) => setSeating(e.target.value)}>
+{SEATING_OPTIONS.map((o) => (<option key={o.value} value={o.value}>{o.label}</option>))}
+</select>
 </div>
 </div>
 
 <div className="space-y-1.5">
 <label className="font-label-md text-label-md text-on-surface uppercase font-semibold">Special Dietary or Ceremonial Requests</label>
-<input className={fieldClass} placeholder="e.g., Pre-book 4 Raja Virundhu Elai feasts, celebrating parents' 50th anniversary, low spice for kids" type="text" />
+<input className={fieldClass} placeholder="e.g., Pre-book 4 Raja Virundhu Elai feasts, celebrating parents' 50th anniversary, low spice for kids" type="text" value={requests} onChange={(e) => setRequests(e.target.value)} />
 </div>
 
 <div className="pt-space-md flex flex-col sm:flex-row items-center justify-between gap-space-md border-t border-outline-variant/30">
 <div className="flex items-center gap-2 text-body-sm text-on-surface-variant">
 <span className="material-symbols-outlined text-tertiary text-[20px]">check_circle</span>
-<span className="">No deposit required. Instant confirmation delivered via WhatsApp.</span>
+<span className="">No deposit required. Your booking opens in WhatsApp — just hit send.</span>
 </div>
 <button className="w-full sm:w-auto px-space-2xl py-space-md bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg uppercase tracking-wider rounded shadow-md hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2" type="submit">
-<span className="">Confirm Reservation</span>
+<span className="">Send on WhatsApp</span>
 <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
 </button>
 </div>
 
 {booked && (<div className="p-space-md rounded bg-tertiary/15 text-tertiary font-body-md text-center">
-            🎉 <strong>Vanakkam!</strong> Your table reservation has been received. Our concierge is preparing your welcome brass tumbler. Confirmation details sent to WhatsApp!
+            🎉 <strong>Vanakkam!</strong> WhatsApp is open with your reservation details — press send and our concierge will confirm your table shortly. If it didn't open, allow pop-ups and try again.
           </div>)}
 </form>
 </div>
